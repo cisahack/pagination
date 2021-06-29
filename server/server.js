@@ -1,3 +1,6 @@
+const express = require("express");
+const app = express();
+
 const apps = [
   { id: 1, name: "my-app-001" },
   { id: 2, name: "my-app-002" },
@@ -50,3 +53,20 @@ const apps = [
   { id: 49, name: "my-app-049" },
   { id: 50, name: "my-app-050" },
 ];
+
+app.get("/apps", (req, res) => {
+  res.json(apps);
+});
+
+app.get("apps", (req, res) => {
+  const page = req.query.page;
+  const limit = req.query.limit;
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  const result = users.slice(startIndex, endIndex);
+  res.json(result);
+});
+
+app.listen(8080, () => {
+  console.log("Express is running on port 8080");
+});
